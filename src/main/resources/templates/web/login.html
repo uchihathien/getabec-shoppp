@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+  <!-- SEO -->
+  <title>Đăng nhập – Getabec Việt Nam | Thiết bị & dụng cụ cơ khí</title>
+  <meta name="description" content="Đăng nhập hệ thống Getabec Việt Nam – cung cấp thiết bị cơ khí, dụng cụ công nghiệp, phụ kiện máy móc.">
+  <meta name="keywords" content="Getabec, cơ khí, dụng cụ cơ khí, thiết bị công nghiệp, login">
+
+  <link rel="icon" href="/images/favicon.png"/>
+
+  <!-- Vendor CSS -->
+  <link rel="stylesheet" href="fonts/icofont/icofont.min.css"/>
+  <link rel="stylesheet" href="fonts/fontawesome/fontawesome.min.css"/>
+  <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css"/>
+  <link rel="stylesheet" href="css/user-auth.css"/>
+  <link rel="stylesheet" href="css/main.css"/>
+
+  <!-- Custom Theme Override -->
+  <style>
+    :root {
+      --primary-blue: #005bb5;
+      --primary-orange: #ff7a00;
+    }
+
+    body {
+      background: linear-gradient(135deg, #005bb5, #003d80);
+    }
+
+    .user-form-card {
+      border-top: 4px solid var(--primary-orange);
+      box-shadow: 0 5px 25px rgba(0, 0, 0, .2);
+    }
+
+    .user-form-title h2 {
+      color: var(--primary-blue);
+      font-weight: 700;
+    }
+
+    .user-form-title p {
+      color: #555;
+    }
+
+    .user-form-card button {
+      background: var(--primary-blue);
+      border: none;
+    }
+
+    .user-form-card button:hover {
+      background: var(--primary-orange);
+    }
+
+    .user-form-social a.facebook {
+      background: #1877f2;
+    }
+
+    .user-form-social a.google {
+      background: #e34133;
+    }
+
+    .user-form-footer a {
+      color: var(--primary-orange);
+    }
+
+    .form-check-label {
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<section class="user-form-part">
+  <div class="container">
+    <div class="row justify-content-center">
+
+      <div class="col-12 col-sm-10 col-md-10 col-lg-8 col-xl-7">
+
+        <!-- LOGO -->
+        <div class="user-form-logo">
+          <a th:href="@{/}">
+            <img src="/images/logo.png" alt="Getabec Logo"/>
+          </a>
+        </div>
+
+        <!-- LOGIN CARD -->
+        <div class="user-form-card">
+
+          <div class="user-form-title">
+            <h2>Đăng nhập hệ thống</h2>
+            <p>Nhập thông tin tài khoản để tiếp tục</p>
+
+            <!-- MESSAGE: REGISTER SUCCESS -->
+            <div class="alert alert-success mt-3" th:if="${message}">
+              <strong>Thành công!</strong> Tài khoản của bạn đã được kích hoạt.
+            </div>
+          </div>
+
+          <div class="user-form-group">
+
+            <!-- SOCIAL LOGIN -->
+            <ul class="user-form-social">
+              <li>
+                <a href="javascript:void(0);" class="facebook">
+                  <i class="fab fa-facebook-f"></i>
+                  Đăng nhập bằng Facebook
+                </a>
+              </li>
+              <li>
+                <a href="javascript:void(0);" class="google">
+                  <i class="fab fa-google"></i>
+                  Đăng nhập bằng Google
+                </a>
+              </li>
+            </ul>
+
+            <div class="user-form-divider"><p>Hoặc</p></div>
+
+            <!-- LOGIN FORM -->
+            <form th:action="@{/doLogin}" method="post" class="user-form">
+
+              <!-- ERROR -->
+              <div th:if="${param.error}">
+                <div class="alert alert-danger">
+                  <span>Email hoặc mật khẩu không chính xác.</span>
+                </div>
+              </div>
+
+              <div class="form-group mt-3">
+                <input type="email"
+                       name="username"
+                       class="form-control"
+                       placeholder="Địa chỉ Email"
+                       autocomplete="off"
+                       required/>
+              </div>
+
+              <div class="form-group">
+                <input type="password"
+                       name="password"
+                       class="form-control"
+                       id="myPass"
+                       placeholder="Mật khẩu"
+                       required/>
+              </div>
+
+              <div class="form-check mb-3">
+                <input class="form-check-input"
+                       type="checkbox"
+                       id="check"
+                       onclick="togglePass()"/>
+                <label class="form-check-label" for="check">
+                  Hiển thị mật khẩu
+                </label>
+              </div>
+
+              <div class="form-button">
+                <button type="submit">Đăng nhập</button>
+                <p>
+                  Quên mật khẩu?
+                  <a th:href="@{/forgotPassword}">Khôi phục tại đây</a>
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- REGISTER LINK -->
+        <div class="user-form-remind">
+          <p>
+            Chưa có tài khoản?
+            <a th:href="@{/register}">Đăng ký ngay</a>
+          </p>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="user-form-footer">
+          <p>
+            © 2025 Getabec Việt Nam | Phát triển bởi
+            <a href="javascript:void(0);">Dinh Thien</a>
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SHOW PASSWORD JS -->
+<script>
+  function togglePass() {
+    const input = document.getElementById("myPass");
+    input.type = (input.type === "password") ? "text" : "password";
+  }
+</script>
+
+<!-- VENDOR JS -->
+<script src="vendor/bootstrap/jquery-1.12.4.min.js"></script>
+<script src="vendor/bootstrap/popper.min.js"></script>
+<script src="vendor/bootstrap/bootstrap.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Cơ khí Getabec</title>
+
+    <!-- Favicon + CSS -->
+    <link rel="icon" href="/images/favicon.png" />
+    <link rel="stylesheet" href="/fonts/flaticon/flaticon.css" />
+    <link rel="stylesheet" href="/fonts/icofont/icofont.min.css" />
+    <link rel="stylesheet" href="/fonts/fontawesome/fontawesome.min.css" />
+    <link rel="stylesheet" href="/vendor/venobox/venobox.min.css" />
+    <link rel="stylesheet" href="/vendor/slickslider/slick.min.css" />
+    <link rel="stylesheet" href="/vendor/niceselect/nice-select.min.css" />
+    <link rel="stylesheet" href="/vendor/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/profile.css" />
+</head>
+
+<body>
+<!-- Header -->
+<header th:replace="~{/web/fragments/header :: header}"></header>
+
+<!-- Banner -->
+<section class="inner-section single-banner"
+         style="background: url(/images/single-banner.jpg) no-repeat center; background-size: cover;">
+    <div class="container">
+        <h2>Thông tin tài khoản</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a th:href="@{/}">Trang chủ</a></li>
+        </ol>
+    </div>
+</section>
+
+<!-- Profile Section -->
+<section class="inner-section profile-part">
+    <div class="container">
+        <div class="row">
+            <!-- Thông tin tài khoản -->
+            <div class="col-lg-12">
+                <div class="account-card">
+                    <div class="account-title">
+                        <h4>Thông tin tài khoản</h4>
+                    </div>
+
+                    <div class="account-content">
+                        <!-- ✅ FORM ĐÃ FIX -->
+                        <form th:action="@{/editProfile/{id}(id=${user.userId})}"
+                              th:object="${profileRequest}"
+                              method="post"
+                              enctype="multipart/form-data">
+
+                            <div class="row align-items-center">
+                                <div class="col-lg-2">
+                                    <div class="profile-image text-center">
+                                        <a href="javascript:void(0);">
+                                            <img th:src="@{'/loadImage?imageName='+${profileRequest.avatar}}"
+                                                 alt="user" style="border-radius:50%; width:120px; height:120px; object-fit:cover;" />
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 col-lg-5">
+                                    <div class="form-group">
+                                        <label class="form-label">Họ và tên</label>
+                                        <input class="form-control" type="text" th:field="*{name}" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 col-lg-5">
+                                    <div class="form-group">
+                                        <label class="form-label">Email</label>
+                                        <input class="form-control" type="email" th:field="*{email}" readonly />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 col-lg-5">
+                                    <div class="form-group">
+                                        <label class="form-label">Địa chỉ</label>
+                                        <input class="form-control" type="text" th:field="*{address}" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 col-lg-5">
+                                    <div class="form-group">
+                                        <label class="form-label">Ảnh đại diện</label>
+                                        <input class="form-control mb-2" th:field="*{avatar}" readonly />
+                                        <input type="file" name="file" class="form-control" />
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 text-end mt-3">
+                                    <button type="submit" class="btn btn-primary">Cập nhật</button>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- ✅ END FORM -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lịch sử đặt hàng -->
+            <div class="col-lg-12 mt-4">
+                <div class="account-card mb-0">
+                    <div class="account-title">
+                        <h4>Lịch sử đặt hàng</h4>
+                    </div>
+
+                    <section class="inner-section checkout-part">
+                        <div class="container">
+                            <div class="table-scroll">
+                                <table class="table-list">
+                                    <thead>
+                                    <tr>
+                                        <th>Mã Order</th>
+                                        <th>Ngày đặt</th>
+                                        <th>Tổng tiền</th>
+                                        <th>Địa chỉ</th>
+                                        <th>Số điện thoại</th>
+                                        <th>Trạng thái</th>
+                                        <th>Hành động</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr th:each="item : ${orderByUser}">
+                                        <td><h6>[[${item.orderId}]]</h6></td>
+                                        <td><h6>[[${item.orderDate}]]</h6></td>
+                                        <td><h6>[[${#numbers.formatDecimal(item.amount, 1, 'DEFAULT', 0, 'DEFAULT')}+' đ']]</h6></td>
+                                        <td><h6>[[${item.address}]]</h6></td>
+                                        <td><h6>[[${item.phone}]]</h6></td>
+                                        <td>
+                                            <div th:switch="${item.status}">
+                                                <span th:case="0" style="color:#0e76a8;">Chờ xác nhận</span>
+                                                <span th:case="1" style="color:#ffab10;">Đang giao hàng</span>
+                                                <span th:case="2" style="color:#119744;">Đã thanh toán</span>
+                                                <span th:case="3" style="color:#ff3838;">Đã hủy</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <a class="view" th:href="@{'/order/detail/'+${item.orderId}}" title="Xem chi tiết">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                                <!-- pagination -->
+                                <div class="bottom-paginate">
+                                    <ul class="pagination">
+                                        <li th:each="pageNumber : ${pageNumbers}"
+                                            th:if="${orderByUser.totalPages > 0}"
+                                            class="page-item">
+                                            <a class="page-link"
+                                               th:href="@{/profile(size=${orderByUser.size}, page=${pageNumber})}"
+                                               th:classappend="${pageNumber==orderByUser.number + 1} ? ' active'">
+                                                [[${pageNumber}]]
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer th:replace="~{/web/fragments/footer :: footer}"></footer>
+
+<!-- JS -->
+<script src="/vendor/bootstrap/jquery-1.12.4.min.js"></script>
+<script src="/vendor/bootstrap/popper.min.js"></script>
+<script src="/vendor/bootstrap/bootstrap.min.js"></script>
+<script src="/vendor/niceselect/nice-select.min.js"></script>
+<script src="/vendor/slickslider/slick.min.js"></script>
+<script src="/js/main.js"></script>
+</body>
+</html>

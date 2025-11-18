@@ -1,0 +1,424 @@
+/* ==========================
+   RESET NHẸ + BIẾN MÀU
+========================== */
+
+:root {
+    --primary: #0b63ce;           /* Xanh biển chủ đạo */
+    --primary-dark: #084d9f;
+    --accent: #ff7a1a;            /* Cam */
+    --accent-dark: #e66609;
+    --text-main: #1f2933;
+    --text-muted: #6b7280;
+    --border-soft: #e2e8f0;
+    --bg-soft: #f5f7fb;
+    --radius-md: 12px;
+    --radius-pill: 999px;
+    --shadow-soft: 0 10px 25px rgba(15, 23, 42, 0.08);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Không đụng nhiều tới body để tránh conflict toàn site */
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* ==========================
+   TOPBAR
+========================== */
+
+.topbar {
+    background: #020617;
+    color: #e5e7eb;
+    font-size: 13px;
+    padding: 6px 0;
+}
+
+.topbar__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.topbar__welcome {
+    margin: 0;
+}
+
+.topbar__welcome b {
+    color: var(--accent);
+}
+
+.topbar__selectors {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.selector {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(148, 163, 184, 0.6);
+}
+
+.selector i {
+    font-size: 13px;
+    color: var(--accent);
+}
+
+.selector select {
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #e5e7eb;
+    font-size: 12px;
+}
+
+/* ==========================
+   HEADER CHÍNH
+========================== */
+
+.header {
+    background: #ffffff;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 10px 0;
+}
+
+/* Logo */
+.header__logo img {
+    height: 56px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* SEARCH */
+.header__search {
+    flex: 1;
+    max-width: 620px;
+    display: flex;
+    align-items: stretch;
+    border-radius: var(--radius-pill);
+    overflow: hidden;
+    border: 1px solid var(--border-soft);
+    background: #ffffff;
+}
+
+.header__search input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 10px 16px;
+    font-size: 14px;
+    color: var(--text-main);
+}
+
+.header__search input::placeholder {
+    color: #9ca3af;
+}
+
+.header__search button {
+    border: none;
+    outline: none;
+    padding: 0 20px;
+    background: var(--primary);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.18s ease, transform 0.1s ease;
+}
+
+.header__search button i {
+    font-size: 15px;
+}
+
+.header__search button:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+/* USER INFO */
+
+.header__user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.header__user img {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid var(--border-soft);
+    object-fit: cover;
+}
+
+.header__user span {
+    color: var(--text-muted);
+}
+
+.header__user b {
+    color: var(--primary);
+}
+
+/* ICONS (tài khoản, yêu thích, giỏ hàng) */
+
+.header__icons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.header__icons .icon,
+.header__icons .cart-btn {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    border: 1px solid var(--border-soft);
+    background: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-main);
+    cursor: pointer;
+    transition: all 0.18s ease;
+}
+
+.header__icons .icon i,
+.header__icons .cart-btn i {
+    font-size: 16px;
+}
+
+.header__icons .icon:hover,
+.header__icons .cart-btn:hover {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border-color: transparent;
+    color: #ffffff;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.2);
+}
+
+.header__icons .badge {
+    position: absolute;
+    top: -6px;
+    right: -3px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    border-radius: 999px;
+    background: #ef4444;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ==========================
+   NAVBAR
+========================== */
+
+.navbar {
+    background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.navbar__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 6px 0;
+}
+
+.navbar__menu {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar__menu > li {
+    position: relative;
+}
+
+.navbar__menu > li > a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 0;
+    color: #e5f1ff;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-weight: 500;
+    transition: color 0.18s ease, transform 0.1s ease;
+}
+
+.navbar__menu > li > a:hover {
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+/* DROPDOWN */
+
+.dropdown > a i {
+    font-size: 11px;
+}
+
+.dropdown__list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 220px;
+    margin-top: 8px;
+    padding: 6px 0;
+    background: #ffffff;
+    color: var(--text-main);
+    border-radius: 10px;
+    box-shadow: 0 16px 30px rgba(15, 23, 42, 0.25);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: all 0.18s ease;
+    z-index: 999;
+}
+
+.dropdown:hover .dropdown__list {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown__list li {
+    list-style: none;
+}
+
+.dropdown__list li a {
+    display: block;
+    padding: 8px 14px;
+    font-size: 14px;
+    color: var(--text-main);
+    white-space: nowrap;
+}
+
+.dropdown__list li a:hover {
+    background: rgba(11, 99, 206, 0.08);
+    color: var(--primary);
+}
+
+/* Nút logout trong dropdown dùng class .dropdown-item */
+.dropdown__list .dropdown-item {
+    width: 100%;
+    border: none;
+    background: transparent;
+    padding: 8px 14px;
+    text-align: left;
+    font-size: 14px;
+    cursor: pointer;
+    color: var(--text-main);
+}
+
+.dropdown__list .dropdown-item:hover {
+    background: rgba(11, 99, 206, 0.08);
+    color: var(--primary);
+}
+
+/* CONTACT BÊN PHẢI */
+
+.navbar__contact {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 13px;
+}
+
+.navbar__contact span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #dbeafe;
+}
+
+.navbar__contact i {
+    font-size: 15px;
+}
+
+/* ==========================
+   RESPONSIVE
+========================== */
+
+@media (max-width: 992px) {
+    .topbar__container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+    .header__content {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .header__search {
+        order: 3;
+        max-width: 100%;
+    }
+
+    .header__user {
+        order: 2;
+    }
+
+    .header__icons {
+        order: 2;
+    }
+
+    .navbar__content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .navbar__menu {
+        flex-wrap: wrap;
+        row-gap: 6px;
+    }
+}
+
+@media (max-width: 576px) {
+    .navbar__menu {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+    .navbar__contact {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

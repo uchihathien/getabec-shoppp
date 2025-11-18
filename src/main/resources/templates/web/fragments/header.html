@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="vi"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+	<meta charset="UTF-8">
+	<title>Header</title>
+	<link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+
+<body>
+
+<th:block th:fragment="header">
+
+	<!-- ================= BACKDROP + BACK-TO-TOP ================= -->
+	<div class="backdrop"></div>
+	<a class="backtop fas fa-arrow-up" href="#"></a>
+
+
+	<!-- ================= HEADER TOP ================= -->
+
+
+
+	<!-- ================= HEADER MAIN ================= -->
+	<header class="header-part">
+		<div class="container">
+			<div class="header-content">
+
+				<!-- MOBILE LOGO + SEARCH -->
+				<div class="header-media-group">
+					<button class="header-user">
+						<img src="/images/user.png" alt="user"/>
+					</button>
+
+					<a th:href="@{/}">
+						<img src="/images/logo.png" alt="logo"/>
+					</a>
+
+					<button class="header-src">
+						<i class="fas fa-search"></i>
+					</button>
+				</div>
+
+				<!-- DESKTOP LOGO -->
+				<a th:href="@{/}" class="header-logo">
+					<img src="/images/logo.png" alt="logo"/>
+				</a>
+
+
+				<!-- USER GREETING -->
+				<th:block sec:authorize="isAuthenticated()">
+					<a href="javascript:void(0);" class="header-widget">
+						<img src="/images/user.png" alt="user"/>
+						<span>
+                            Hi! <strong><em th:text="${user.name}"></em></strong>
+                        </span>
+					</a>
+				</th:block>
+
+
+				<!-- SEARCH FORM -->
+				<form th:action="@{/searchProduct}" method="get" class="header-form">
+					<input type="text" name="keyword" th:value="${keyword}" placeholder="Tìm máy móc, linh kiện cơ khí..."/>
+					<button><i class="fas fa-search"></i></button>
+				</form>
+
+
+				<!-- ICON GROUP -->
+				<div class="header-widget-group">
+
+					<th:block sec:authorize="isAuthenticated()">
+						<a th:href="@{/profile}" class="header-widget" title="Trang cá nhân">
+							<i class="fas fa-user"></i>
+						</a>
+					</th:block>
+
+					<a th:href="@{/favorite}" class="header-widget">
+						<i class="fas fa-heart"></i>
+						<sup id="totalSave" th:text="${totalSave}">0</sup>
+					</a>
+
+					<button class="header-widget header-cart cart-btn">
+						<i class="fas fa-shopping-basket"></i>
+						<sup id="totalCartItems" th:text="${totalCartItems}">0</sup>
+					</button>
+
+				</div>
+			</div>
+		</div>
+	</header>
+
+
+	<!-- ================= NAVBAR ================= -->
+	<nav class="navbar-part">
+		<div class="container">
+			<ul class="navbar-list">
+
+				<li class="navbar-item dropdown">
+					<a class="navbar-link dropdown-arrow">Trang chủ</a>
+					<ul class="dropdown-position-list">
+						<li><a th:href="@{/}">Trang chủ</a></li>
+					</ul>
+				</li>
+
+				<li class="navbar-item">
+					<a class="navbar-link" th:href="@{/aboutUs}">Giới thiệu</a>
+				</li>
+
+				<li class="navbar-item">
+					<a class="navbar-link" th:href="@{/products}">Sản phẩm cơ khí</a>
+				</li>
+
+				<li class="navbar-item dropdown">
+					<a class="navbar-link dropdown-arrow">Danh mục</a>
+					<ul class="dropdown-position-list">
+						<li th:each="cate : ${categoryList}">
+							<a th:href="@{/productByCategory(id=${cate.categoryId})}">
+								[[${cate.categoryName}]]
+							</a>
+						</li>
+					</ul>
+				</li>
+
+				<li class="navbar-item">
+					<a class="navbar-link" th:href="@{/contact}">Liên hệ</a>
+				</li>
+
+				<li class="navbar-item dropdown">
+					<a class="navbar-link dropdown-arrow">Tài khoản</a>
+					<ul class="dropdown-position-list">
+
+						<!-- CHƯA LOGIN -->
+						<th:block sec:authorize="isAnonymous()">
+							<li><a th:href="@{/login}">Đăng nhập</a></li>
+							<li><a th:href="@{/register}">Đăng ký</a></li>
+							<li><a th:href="@{/forgotPassword}">Quên mật khẩu</a></li>
+						</th:block>
+
+						<!-- ĐÃ LOGIN -->
+						<th:block sec:authorize="isAuthenticated()">
+							<li><a th:href="@{/profile}">Thông tin tài khoản</a></li>
+							<li>
+								<form th:action="@{/logout}" method="post">
+									<button type="submit" class="dropdown-item">Đăng xuất</button>
+								</form>
+							</li>
+						</th:block>
+
+					</ul>
+				</li>
+			</ul>
+
+			<!-- CONTACT RIGHT -->
+<!--			<div class="navbar-info-group">-->
+<!--				<div class="navbar-info">-->
+<!--					<i class="icofont-ui-touch-phone"></i>-->
+<!--					<p><small>Hotline</small><span>0904 694 470</span></p>-->
+<!--				</div>-->
+<!--				<div class="navbar-info">-->
+<!--					<i class="icofont-ui-email"></i>-->
+<!--					<p><small>Email</small><span>getabec.support@gmail.com</span></p>-->
+<!--				</div>-->
+<!--			</div>-->
+
+		</div>
+	</nav>
+
+
+	<!-- ================= CART SIDEBAR ================= -->
+	<aside class="cart-sidebar">
+
+		<div class="cart-header">
+			<div class="cart-total">
+				<i class="fas fa-shopping-basket"></i>
+				<span>Giỏ hàng ([[${totalCartItems}]])</span>
+			</div>
+			<button class="cart-close"><i class="icofont-close"></i></button>
+		</div>
+
+		<!-- EMPTY CART -->
+		<div th:if="${totalCartItems == 0}" class="text-center">
+			<h4 style="color:#0b7dda" class="mt-5">Chưa có sản phẩm trong giỏ hàng!</h4>
+			<h5 style="color:#0b7dda">Hãy chọn thiết bị cơ khí phù hợp nào!</h5>
+			<a th:href="@{/products}" style="text-decoration:underline">Xem sản phẩm</a>
+		</div>
+
+		<!-- CART LIST -->
+		<th:block th:if="${totalCartItems > 0}">
+			<ul class="cart-list">
+
+				<li class="cart-item" th:each="item : ${cartItems}">
+
+					<div class="cart-media">
+						<a th:href="@{/productDetail(id=${item.product.productId})}">
+							<img th:src="@{'/loadImage?imageName=' + ${item.product.productImage}}">
+						</a>
+					</div>
+
+					<div class="cart-info-group">
+						<div class="cart-info">
+							<h6>
+								<label>Sản phẩm:</label>
+								<a th:href="@{/productDetail(id=${item.product.productId})}">
+									[[${item.product.productName}]]
+								</a>
+							</h6>
+
+							<label>Đơn giá :</label>
+							<p>
+								[[${#numbers.formatDecimal(item.product.price - (item.product.price * item.product.discount/100),1,'DEFAULT',0,'DEFAULT')}]] đ
+							</p>
+						</div>
+
+						<!-- Quantity -->
+						<div class="wrap-num-product flex-w">
+
+							<a th:href="@{'/update-cart?id=' + ${item.id} + '&quantity=' + -1}">
+								<div class="btn-num-product-down">
+									<i class="zmdi zmdi-minus"></i>
+								</div>
+							</a>
+
+							<input type="number" class="num-product"
+								   min="1" th:value="${item.quantity}"/>
+
+							<a th:href="@{'/update-cart?id=' + ${item.id} + '&quantity=' + 1}">
+								<div class="btn-num-product-up">
+									<i class="zmdi zmdi-plus"></i>
+								</div>
+							</a>
+
+						</div>
+					</div>
+
+				</li>
+
+			</ul>
+
+			<!-- CART FOOTER -->
+			<div class="cart-footer">
+				<a class="cart-checkout-btn" th:href="@{/checkout}">
+					<span class="checkout-label">Thanh toán</span>
+				</a>
+			</div>
+
+		</th:block>
+
+	</aside>
+
+</th:block>
+
+</body>
+</html>

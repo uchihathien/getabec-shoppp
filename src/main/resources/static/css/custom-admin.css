@@ -1,0 +1,51 @@
+/* ================================
+   GETABEC ADMIN THEME COLORS
+================================ */
+:root {
+    --getabec-blue: #005f99;
+    --getabec-orange: #ff8c00;
+    --getabec-green: #11a36a;
+    --getabec-red: #d83939;
+}
+
+/* Page title */
+.page-title {
+    color: var(--getabec-blue);
+    font-weight: 700;
+}
+
+/* Button custom */
+.btn-getabec {
+    background: var(--getabec-blue);
+    color: #fff !important;
+    border-radius: 4px;
+}
+.btn-getabec:hover {
+    background: #004b7a;
+}
+
+/* Button orange */
+.btn-orange {
+    background: var(--getabec-orange);
+    color: #fff !important;
+}
+.btn-orange:hover {
+    background: #e57700;
+}
+
+/* Table row hover */
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 95, 153, 0.08);
+}
+
+/* Order status colors */
+.status-waiting { color: #0e76a8; font-weight: bold; }
+.status-confirm { color: #ff8c00; font-weight: bold; }
+.status-paid { color: #11a36a; font-weight: bold; }
+.status-cancel { color: #d83939; font-weight: bold; }
+
+/* Modal header */
+.modal-header {
+    background: var(--getabec-blue);
+    color: white;
+}

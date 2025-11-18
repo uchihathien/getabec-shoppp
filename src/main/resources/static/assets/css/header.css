@@ -1,0 +1,80 @@
+/* === FIX HEADER LAYOUT === */
+.topbar__container,
+.header__content,
+.navbar__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.header__content {
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    padding: 10px 0;
+}
+
+.header__logo img {
+    height: 60px;
+}
+
+.header__search {
+    display: flex;
+    flex: 1;
+    margin: 0 20px;
+    max-width: 400px;
+}
+.header__search input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+}
+.header__search button {
+    border: none;
+    background: #119744;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+}
+
+/* ICONS */
+.header__icons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.icon {
+    font-size: 18px;
+    color: #119744;
+    position: relative;
+}
+.badge {
+    background: #e74c3c;
+    color: #fff;
+    font-size: 12px;
+    border-radius: 50%;
+    padding: 2px 6px;
+    position: absolute;
+    top: -8px;
+    right: -10px;
+}
+
+/* NAVBAR */
+.navbar {
+    background: #119744;
+    color: #fff;
+}
+.navbar__menu {
+    display: flex;
+    gap: 25px;
+}
+.navbar__menu a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+}
+.navbar__menu a:hover {
+    text-decoration: underline;
+}
